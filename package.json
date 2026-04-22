@@ -25,8 +25,7 @@
     "smoke:docker": "bun run ./scripts/smoke-docker.mjs",
     "lint": "eslint . --max-warnings 0",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "release:package": "bun publish --access public"
+    "release": "bun publish --access public"
   },
   "peerDependencies": {
     "@absolutejs/rag": ">=0.0.3 <0.1.0"
