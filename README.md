@@ -24,7 +24,10 @@ choices inside the package.
 ## Public surface
 
 ```ts
-import { createPostgresRAG, ragPlugin } from "@absolutejs/absolute-rag-postgresql";
+import {
+  createPostgresRAG,
+  ragPlugin,
+} from "@absolutejs/absolute-rag-postgresql";
 
 const rag = createPostgresRAG({
   connectionString: process.env.DATABASE_URL,
@@ -40,20 +43,20 @@ const rag = createPostgresRAG({
       type: "hnsw",
       efSearch: 100,
       efConstruction: 64,
-      m: 16
-    }
+      m: 16,
+    },
   },
   schema: {
     schemaName: "absolute_rag",
-    chunkTableName: "chunks"
-  }
+    chunkTableName: "chunks",
+  },
 });
 
 app.use(
   ragPlugin({
     path: "/rag",
-    collection: rag.collection
-  })
+    collection: rag.collection,
+  }),
 );
 ```
 
@@ -77,11 +80,13 @@ app.use(
 ### Connection boundary
 
 The package now supports either:
+
 - `connectionString` using the bundled `postgres` driver
 - injected `client`
 - injected `clientFactory`
 
 That keeps it compatible with:
+
 - direct Postgres clients
 - pooled clients
 - framework-managed DB lifecycles
@@ -89,12 +94,14 @@ That keeps it compatible with:
 ### Schema boundary
 
 The package should own a default schema layout but allow overrides:
+
 - schema name
 - chunk table name
 - migration table name
 - stable column naming
 
 The initial pgvector implementation should store:
+
 - chunk id
 - chunk text
 - title
@@ -107,6 +114,7 @@ The initial pgvector implementation should store:
 
 The first implementation should assume the `vector` extension provided by `pgvector`.
 The package should generate explicit SQL for:
+
 - `CREATE EXTENSION IF NOT EXISTS vector`
 - schema creation
 - table creation
@@ -116,6 +124,7 @@ The package should generate explicit SQL for:
 ### Distance/index boundary
 
 The first pgvector implementation should support:
+
 - distance metrics:
   - `cosine`
   - `l2`
@@ -136,6 +145,7 @@ its public package identity stable.
 ## Current state
 
 Implemented now:
+
 - schema plan generation
 - pgvector-backed store contract against the core `RAGVectorStore` interface
 - PostgreSQL RAG bundle and collection helpers

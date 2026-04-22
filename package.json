@@ -22,14 +22,18 @@
   "scripts": {
     "check": "node ./scripts/check-scaffold.mjs",
     "test": "bun test",
-    "smoke:docker": "bun run ./scripts/smoke-docker.mjs"
+    "smoke:docker": "bun run ./scripts/smoke-docker.mjs",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "release:package": "bun publish --access public"
   },
   "peerDependencies": {
-    "@absolutejs/absolute": ">=0.19.0-beta.406 <0.20.0"
+    "@absolutejs/rag": ">=0.0.2 <0.1.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/absolutejs/absolute-rag-postgresql.git"
+    "url": "https://github.com/absolutejs/rag-postgresql.git"
   },
   "keywords": [
     "absolutejs",
@@ -42,6 +46,13 @@
     "postgres": "^3.4.9"
   },
   "devDependencies": {
-    "@absolutejs/absolute": "0.19.0-beta.406"
+    "@absolutejs/rag": "0.0.2",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0",
+    "prettier": "^3.5.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

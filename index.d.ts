@@ -2,28 +2,40 @@ import type {
   RAGBackendCapabilities,
   RAGCollection,
   RAGVectorStore,
-  RAGVectorStoreStatus
-} from '@absolutejs/absolute/ai';
+  RAGVectorStoreStatus,
+} from "@absolutejs/rag";
 
-export declare const ABSOLUTE_POSTGRESQL_RAG_PACKAGE_NAME = "@absolutejs/absolute-rag-postgresql";
-export declare const POSTGRESQL_RAG_IMPLEMENTATIONS: readonly ['pgvector'];
-export declare const PGVECTOR_DISTANCE_METRICS: readonly ['cosine', 'l2', 'inner_product'];
-export declare const PGVECTOR_INDEX_TYPES: readonly ['none', 'hnsw', 'ivfflat'];
+export declare const ABSOLUTE_POSTGRESQL_RAG_PACKAGE_NAME =
+  "@absolutejs/absolute-rag-postgresql";
+export declare const POSTGRESQL_RAG_IMPLEMENTATIONS: readonly ["pgvector"];
+export declare const PGVECTOR_DISTANCE_METRICS: readonly [
+  "cosine",
+  "l2",
+  "inner_product",
+];
+export declare const PGVECTOR_INDEX_TYPES: readonly ["none", "hnsw", "ivfflat"];
 
-export type PostgreSQLRAGVectorImplementation = 'pgvector';
-export type PgvectorDistanceMetric = 'cosine' | 'l2' | 'inner_product';
-export type PgvectorIndexType = 'none' | 'hnsw' | 'ivfflat';
+export type PostgreSQLRAGVectorImplementation = "pgvector";
+export type PgvectorDistanceMetric = "cosine" | "l2" | "inner_product";
+export type PgvectorIndexType = "none" | "hnsw" | "ivfflat";
 
 export type PostgreSQLRAGClient = {
-  query: <TRow = Record<string, unknown>>(sql: string, params?: unknown[]) => Promise<{
+  query: <TRow = Record<string, unknown>>(
+    sql: string,
+    params?: unknown[],
+  ) => Promise<{
     rows: TRow[];
     rowCount?: number;
   }>;
-  transaction?: <T>(run: (client: PostgreSQLRAGClient) => Promise<T>) => Promise<T>;
+  transaction?: <T>(
+    run: (client: PostgreSQLRAGClient) => Promise<T>,
+  ) => Promise<T>;
   close?: () => Promise<void>;
 };
 
-export type PostgreSQLRAGClientFactory = () => Promise<PostgreSQLRAGClient> | PostgreSQLRAGClient;
+export type PostgreSQLRAGClientFactory = () =>
+  | Promise<PostgreSQLRAGClient>
+  | PostgreSQLRAGClient;
 
 export type PostgreSQLRAGSchemaConfig = {
   schemaName?: string;
@@ -32,23 +44,23 @@ export type PostgreSQLRAGSchemaConfig = {
 };
 
 export type PgvectorHNSWConfig = {
-  type: 'hnsw';
+  type: "hnsw";
   m?: number;
   efConstruction?: number;
   efSearch?: number;
-  iterativeScan?: 'off' | 'strict_order' | 'relaxed_order';
+  iterativeScan?: "off" | "strict_order" | "relaxed_order";
 };
 
 export type PgvectorIVFFlatConfig = {
-  type: 'ivfflat';
+  type: "ivfflat";
   lists?: number;
   probes?: number;
   maxProbes?: number;
-  iterativeScan?: 'off' | 'strict_order' | 'relaxed_order';
+  iterativeScan?: "off" | "strict_order" | "relaxed_order";
 };
 
 export type PgvectorNoIndexConfig = {
-  type: 'none';
+  type: "none";
 };
 
 export type PgvectorIndexConfig =
@@ -57,10 +69,10 @@ export type PgvectorIndexConfig =
   | PgvectorIVFFlatConfig;
 
 export type PgvectorConfig = {
-  provider: 'pgvector';
+  provider: "pgvector";
   dimensions: number;
   distanceMetric?: PgvectorDistanceMetric;
-  extensionName?: 'vector' | string;
+  extensionName?: "vector" | string;
   autoCreateExtension?: boolean;
   autoCreateSchema?: boolean;
   autoCreateTables?: boolean;
@@ -74,7 +86,7 @@ export type PostgreSQLDriverOptions = {
   idle_timeout?: number;
   connect_timeout?: number;
   max_lifetime?: number;
-  ssl?: boolean | 'require' | 'allow' | 'prefer' | 'verify-full';
+  ssl?: boolean | "require" | "allow" | "prefer" | "verify-full";
 };
 
 export type PostgreSQLRAGOptions = {
@@ -84,7 +96,7 @@ export type PostgreSQLRAGOptions = {
   driver?: PostgreSQLDriverOptions;
   schema?: PostgreSQLRAGSchemaConfig;
   vector: PgvectorConfig;
-  embedding?: RAGVectorStore['embed'];
+  embedding?: RAGVectorStore["embed"];
 };
 
 export type PostgreSQLSchemaPlan = {
@@ -97,7 +109,7 @@ export type PostgreSQLSchemaPlan = {
   migrationTableQualifiedName: string;
 };
 
-export type PostgreSQLMigrationStage = 'extension' | 'table' | 'index';
+export type PostgreSQLMigrationStage = "extension" | "table" | "index";
 
 export type PostgreSQLMigrationEntry = {
   name: string;
@@ -137,17 +149,29 @@ export type PostgreSQLRAG = {
   getCapabilities: () => RAGBackendCapabilities | undefined;
   getSchemaPlan: () => PostgreSQLSchemaPlan;
   getMigrationPlan: () => PostgreSQLMigrationPlan;
-  applyMigrations: (options?: PostgreSQLApplyMigrationsOptions) => Promise<PostgreSQLApplyMigrationsResult>;
+  applyMigrations: (
+    options?: PostgreSQLApplyMigrationsOptions,
+  ) => Promise<PostgreSQLApplyMigrationsResult>;
 };
 
-export declare const createPostgresRAG: (options: PostgreSQLRAGOptions) => PostgreSQLRAG;
+export declare const createPostgresRAG: (
+  options: PostgreSQLRAGOptions,
+) => PostgreSQLRAG;
 export declare const createPostgreSQLRAG: typeof createPostgresRAG;
-export declare const createPostgresRAGCollection: (options: PostgreSQLRAGOptions) => RAGCollection;
-export declare const createPgvectorStore: (options: PostgreSQLRAGOptions) => RAGVectorStore;
-export declare const createPostgresSchemaPlan: (options: PostgreSQLRAGOptions) => PostgreSQLSchemaPlan;
-export declare const createPostgresMigrationPlan: (options: PostgreSQLRAGOptions) => PostgreSQLMigrationPlan;
+export declare const createPostgresRAGCollection: (
+  options: PostgreSQLRAGOptions,
+) => RAGCollection;
+export declare const createPgvectorStore: (
+  options: PostgreSQLRAGOptions,
+) => RAGVectorStore;
+export declare const createPostgresSchemaPlan: (
+  options: PostgreSQLRAGOptions,
+) => PostgreSQLSchemaPlan;
+export declare const createPostgresMigrationPlan: (
+  options: PostgreSQLRAGOptions,
+) => PostgreSQLMigrationPlan;
 export declare const applyPostgresMigrations: (
   options: PostgreSQLRAGOptions,
-  applyOptions?: PostgreSQLApplyMigrationsOptions
+  applyOptions?: PostgreSQLApplyMigrationsOptions,
 ) => Promise<PostgreSQLApplyMigrationsResult>;
 export declare const applyPostgresSchemaPlan: typeof applyPostgresMigrations;
