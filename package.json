@@ -1,6 +1,6 @@
 {
   "name": "@absolutejs/absolute-rag-postgresql",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "PostgreSQL adapter package for AbsoluteJS RAG workflows, with pgvector as the first vector implementation",
   "license": "BSL-1.1",
   "type": "module",
@@ -29,7 +29,7 @@
     "release:package": "bun publish --access public"
   },
   "peerDependencies": {
-    "@absolutejs/rag": ">=0.0.2 <0.1.0"
+    "@absolutejs/rag": ">=0.0.3 <0.1.0"
   },
   "repository": {
     "type": "git",
@@ -46,7 +46,7 @@
     "postgres": "^3.4.9"
   },
   "devDependencies": {
-    "@absolutejs/rag": "0.0.2",
+    "@absolutejs/rag": "0.0.3",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.0.3",
     "globals": "^17.4.0",
