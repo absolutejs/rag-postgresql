@@ -1,0 +1,7 @@
+node_modules/
+dist/
+build/
+.absolute/
+.absolutejs/
+*.tgz
+.DS_Store
